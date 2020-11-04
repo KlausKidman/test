@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" >
+        <input type="text" v-model="input" autofocus> 
+        <div v-for="item in filteredUsers">{{ item.name }}:{{ item.age}}</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                input: '',
+                show: true,
+                items: [{
+                    name: 'oleg',
+                    age: 18
+                },
+                {
+                    name: 'vova',
+                    age: 23
+                },
+                {
+                    name: 'inna',
+                    age: 13
+                },
+                {
+                    name: 'gala',
+                    age: 45
+                }]
+            }, 
+            methods:{
+                onClick: function(){
+                    console.log(this.message)
+                }
+            },
+            filters: {
+                capitalize: function (value) {
+                    if (!value) return ''
+                    return value.toUpperCase() + 'p'
+                }
+            },
+            computed: {
+                filteredUsers: function () {
+                    var self = this
+                    return self.items.filter(function (item) {
+                    return item.name.indexOf(self.input) !== -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
